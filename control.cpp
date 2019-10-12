@@ -6,33 +6,43 @@
 #include <fcntl.h>
 #include <ncurses.h>
 #include <termios.h>
+#include "control.h"
+#include "base.h"
 
-void ControlSnake()
+int Control::ControlSnake()
 {
   int ch;
 
+  Snake snake;
   /* Curses Initialisations */
   initscr();
   raw();
   keypad(stdscr, TRUE);
   noecho();
-
   printw("Press E to Exit\n");
 
   while((ch = getch()) != 'E')
   {
       switch(ch)
       {
-      case KEY_UP:         printw("\nUp Arrow");
-                  break;
-      case KEY_DOWN:      printw("\nDown Arrow");
-                  break;
-      case KEY_LEFT:      printw("\nLeft Arrow");
-                  break;
-      case KEY_RIGHT:     printw("\nRight Arrow");
-                  break;
+      case KEY_UP:
+              printw("\nUp Arrow");
+              val = 24;
+              return val;
+      case KEY_DOWN:
+              printw("\nDown Arrow");
+              val = 25;
+              return val;
+      case KEY_LEFT:
+              printw("\nLeft Arrow");
+              val = 26;
+              return val;
+      case KEY_RIGHT:
+              printw("\nRight Arrow");
+              val = 27;
+              return val;
       default:
-                  printw("\nThe pressed key is %c",ch);
+              printw("\nThe pressed key is %c",ch);
 
       }
   }
@@ -40,4 +50,3 @@ void ControlSnake()
   printw("\n\Exiting Now\n");
   endwin();
 }
-

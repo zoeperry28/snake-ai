@@ -1,18 +1,24 @@
 #ifndef __BASE_H__
-#define __BASE_H__ 
+#define __BASE_H__
 
-char board [32] [32];
-char  start_of_snake_V;
-char start_of_snake_H;
 
-char * snake = new char[30] ;
-int snake_size = 3;
+class Snake
+{
+  public :
+    char board [32] [32];
+    char  start_of_snake_V;
+    char start_of_snake_H;
 
-void create_Snake ();
+    char * snake = new char[30] ;
+    int snake_size = 3;
 
-void add_Food ();
+    void create_Snake ();
 
-char create_Board ();
+    void add_Food ();
+
+    char create_Board (int dst);
+
+    void move_Snake ();
+};
 
 #endif
-

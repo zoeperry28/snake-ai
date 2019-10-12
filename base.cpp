@@ -1,12 +1,13 @@
 #include <stdio.h>
-
 #include <iostream>
 #include <cstdlib>
 #include "base.h"
 #include "control.h"
 using namespace std;
 
-void create_Snake ()
+int test;
+
+void Snake::create_Snake ()
 {
   for ( int i = 0 ; i < snake_size; i++ )
   {
@@ -14,7 +15,7 @@ void create_Snake ()
   }
 }
 
-void add_Food ()
+void Snake::add_Food ()
 {
   int j, k;
   char * p;
@@ -29,11 +30,11 @@ void add_Food ()
   start_of_snake_H = rand() % 30 + 1;
   board[start_of_snake_V][start_of_snake_H] = '$' ;
 
-  printf("%x\n%x\n", start_of_snake_V, start_of_snake_H);
+
   }
 
 
-char create_Board () {
+char Snake::create_Board (int dst) {
 
   int i, j ;
 
@@ -48,7 +49,7 @@ char create_Board () {
       }
       else
       {
-        board[i][j] = '-';
+        board[i][j] = ' ';
       }
 
     }
@@ -56,12 +57,11 @@ char create_Board () {
 
   add_Food() ;
 
-      cout<<"\n Two Dimensional Array is : \n";
       for(i=0; i<32; i++)
       {
         for(j=0; j<32; j++)
          {
-           cout<<" "<<board[i][j]<<" ";
+           std::cout << board[i][j] ;
          }
           cout<<"\n";
        }
@@ -70,14 +70,48 @@ char create_Board () {
 
 }
 
+void Snake::move_Snake ( )
+{
+  Control con;
+  Snake s;
+  int x;
+  x = con.ControlSnake();
 
+  printf("%i",x );
+
+  switch (x) {
+      case 24:
+        test = 24;
+        start_of_snake_V++;
+
+        break;
+      case 25:
+        //DOWN
+        test = 25;
+        start_of_snake_V--;
+        break;
+      case 26:
+        //LEFT
+        test=26;
+        start_of_snake_H++;
+        break;
+      case 27:
+        //RIGHT
+        test = 27;
+        start_of_snake_H--;
+        break;
+
+
+  }
+}
 
 int main ()
 {
 
-  create_Board();
-  ControlSnake();
+  Snake s; Control c;
+
+  s.move_Snake();
+  s.create_Board(test);
 
   return 1;
 }
-

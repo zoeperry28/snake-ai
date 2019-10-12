@@ -1,7 +1,11 @@
 #ifndef __CONTROL_H__
 #define __CONTROL_H__
 
-void ControlSnake () ;
 
+class Control {
+  public:
+    int val;
+    
+    int ControlSnake () ;
+};
 #endif
-
