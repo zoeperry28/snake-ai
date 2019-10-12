@@ -3,15 +3,8 @@
 #include <iostream>
 #include <cstdlib>
 #include "base.h"
+#include "control.h"
 using namespace std;
-
-
-void control_Snake ()
-{
-
-
-
-}
 
 void create_Snake ()
 {
@@ -83,7 +76,8 @@ int main ()
 {
 
   create_Board();
-
+  ControlSnake();
 
   return 1;
 }
+
