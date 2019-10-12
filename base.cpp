@@ -2,20 +2,15 @@
 
 #include <iostream>
 #include <cstdlib>
+#include "base.h"
 using namespace std;
 
-char board [32] [32];
-char  start_of_snake_V;
-char start_of_snake_H;
-
-char * snake = new char[30] ;
-int snake_size = 3;
 
 void control_Snake ()
 {
 
 
-  
+
 }
 
 void create_Snake ()
