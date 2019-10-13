@@ -16,7 +16,7 @@ class Snake
 
     void add_Food ();
 
-    char create_Board (int dst);
+    char create_Board ();
 
     void move_Snake ();
 };
