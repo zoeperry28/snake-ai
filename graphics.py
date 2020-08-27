@@ -1,8 +1,8 @@
 from snake_logic import snake_board
 import pygame
-# define a main function
+import time
 
-multiplier = 10 
+multiplier = 5
 red = (255,0,0)
 blue = (0,0,255)
 green = (0,255,0)
@@ -10,7 +10,6 @@ lol = (255,255,0)
 white = (255,255,255)
 black = (0,0,0)
 def main():
-    
     print("hello")
     s = snake_board(100,100);
     TO_REPLICATE = s.SNAKE_SETUP()
@@ -22,7 +21,7 @@ def main():
     print("LOL")
     windw(init, s.BOARD, s.width*multiplier, s.height*multiplier, TO_REPLICATE) 
 
-def use_data(screen, BOARD, width, height, coords, old_keypress, mv, food_loc, food_score):
+def use_data(screen, BOARD, width, height, coords, old_keypress, mv):
     
     new_i = 0;
     new_j = 0;
@@ -32,46 +31,59 @@ def use_data(screen, BOARD, width, height, coords, old_keypress, mv, food_loc, f
                 
     for i in range(len(BOARD)):
         for j in range(len(BOARD[i])):
-
-            if(((i == len(BOARD)-1) or (j == len(BOARD[i])-1)) or ((i == 0) or (j == 0))) :
+            if(((i == len(BOARD)-1) or (j >= len(BOARD[i])-2)) or ((i == 0) or (j <= 1))) :
                 pygame.draw.rect(screen, red, (i*multiplier, j*multiplier, 10,10))  
             else: 
-                pygame.draw.rect(screen, white, (i*multiplier, j*multiplier, 10,10))     
-
-    xy = movement_graphics(screen, BOARD, coords, old_keypress, mv, 0)
+                pygame.draw.rect(screen, white, (i*multiplier, j*multiplier, 10,10))
+    xy = movement_graphics(screen, BOARD, coords, old_keypress, mv)
     return xy;
     
-def movement_graphics(screen, board, coords, oDirection, nDirection, food_score): 
+def movement_graphics(screen, board, coords, oDirection, nDirection): 
     INIT_X = coords[0][0]
     INIT_Y = coords[0][1]
+    FOOD_X = coords[1][0]
+    FOOD_Y = coords[1][1]
     count = 0
+    
+    try:
+        food_score = coords[2][0]
+    except:
+        food_score = 0
+        
+    if(INIT_X == FOOD_X):
+        if(INIT_Y == FOOD_Y):
+            print("FOOD")  
+            food_score = food_score + 1
+            
+    pygame.time.delay(150)
+    
     if(nDirection == 'U'):
-        INIT_Y = INIT_Y - 1
+        INIT_Y = INIT_Y - 5
         count = food_score+3
         for i in range(1,count):
             pygame.draw.rect(screen, blue, (INIT_X*multiplier, (INIT_Y+i)*multiplier, 10,10)) 
     if(nDirection == 'D'):
-        INIT_Y = INIT_Y + 1
+        INIT_Y = INIT_Y + 5
         count = food_score+3
         for i in range(1,count):
             pygame.draw.rect(screen, blue, (INIT_X*multiplier, (INIT_Y-i)*multiplier, 10,10)) 
             
     if(nDirection == 'L'):
-        INIT_X = INIT_X - 1
+        INIT_X = INIT_X - 5
         count = food_score+3
         for i in range(1,count):
             pygame.draw.rect(screen, blue, ((INIT_X+i)*multiplier, INIT_Y*multiplier, 10,10)) 
             
     if(nDirection == 'R'):
-        INIT_X = INIT_X + 1
+        INIT_X = INIT_X + 5
         count = food_score+3
         for i in range(1,count):
             pygame.draw.rect(screen, blue, ((INIT_X-i)*multiplier, INIT_Y*multiplier, 10,10)) 
             
     pygame.draw.rect(screen, red, (INIT_X*multiplier, INIT_Y*multiplier, 10,10)) 
-    
-     
-    return [[INIT_X,INIT_Y]]
+    pygame.draw.rect(screen, red, (FOOD_X*multiplier, FOOD_Y*multiplier, 10,10)) 
+  
+    return [[INIT_X,INIT_Y],[FOOD_X, FOOD_Y], [food_score]]
                         
 def windw(init, BOARD, width, height, TO_REPLICATE) :
     
